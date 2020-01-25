@@ -28,17 +28,15 @@ export default class MainScreen extends Component   {
             <View >
                 <StatusBar barStyle="light-content" />
                   <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
-                  
-                  <MainHeaderImage></MainHeaderImage>
+                    <MainHeaderImage></MainHeaderImage>
 
-                  <ContentsHorizontalView></ContentsHorizontalView>
-                  <ContentsHorizontalView></ContentsHorizontalView>
-                  <ContentsHorizontalView></ContentsHorizontalView>
-                  <ContentsHorizontalView></ContentsHorizontalView>
-                  <ContentsHorizontalView></ContentsHorizontalView>
+                    <ContentsHorizontalView title="Recent"></ContentsHorizontalView>
+                    <ContentsHorizontalView title="Popular"></ContentsHorizontalView>
+                    <ContentsHorizontalView title="MyBook"></ContentsHorizontalView>
+                    <ContentsHorizontalView title="Movie"></ContentsHorizontalView>
                   </ScrollView>
-                  {/* <Footer navigation={this.props.navigation}></Footer> */}
-                  <Header></Header>  
+                  
+                  {/* <Header></Header>   */}
             </View>
           );
     }
@@ -48,6 +46,7 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: 'black',
     width: '100%',
+    height: '100%',
     zIndex:0
   },
   engine: {

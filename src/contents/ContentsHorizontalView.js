@@ -17,7 +17,7 @@ export default class ContentsHorizontalView extends Component   {
             <View style={styles.contentsRoot}>
                 <View>
                     <Text style={styles.titleText}>
-                        Hello world
+                        {this.props.title}
                     </Text>
                 </View>
                 <ScrollView horizontal={true} style={styles.scrollView} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false} >
@@ -44,7 +44,9 @@ const styles = StyleSheet.create({
     },
     titleText: {
         color:'white',
-        fontWeight: "bold"
+        fontWeight: "bold",
+        marginTop:3,
+        marginBottom:3
     },
     scrollView:{
         width:'100%', 

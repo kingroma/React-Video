@@ -5,39 +5,22 @@ import { createMaterialBottomTabNavigator } from 'react-navigation-material-bott
 import Icon from 'react-native-vector-icons/Ionicons';  
 
 import MainScreen from '../screen/MainScreen'
+import SearchScreen from '../screen/SearchScreen'
 
-class HomeScreen extends React.Component {  
-  render() {  
-    return (  
-        <View style={styles.container}>  
-          <Text>Home Screen</Text>  
-        </View>  
-    );  
-  }  
-}  
-class ProfileScreen extends React.Component {  
-  render() {  
-    return (  
-        <View style={styles.container}>  
-          <Text>Profile Screen</Text>  
-        </View>  
-    );  
-  }  
-}  
-class ImageScreen extends React.Component {  
+class HistoryScreen extends React.Component {  
     render() {  
         return (  
             <View style={styles.container}>  
-                <Text>Image Screen</Text>  
+                <Text>History Screen</Text>  
             </View>  
         );  
     }  
 }  
-class CartScreen extends React.Component {  
+class SettingScreen extends React.Component {  
     render() {  
         return (  
             <View style={styles.container}>  
-                <Text>Cart Screen</Text>  
+                <Text>Setting Screen</Text>  
             </View>  
         );  
     }  
@@ -60,49 +43,37 @@ const MyNav = createMaterialBottomTabNavigator(
                         {/* <Icon style={[{color: tintColor}]} size={25} name={'ios-home'}/>   */}
                         <Text style={{color:'white'}}>1</Text>
                     </View>),
-                // activeColor: '#ffffff',  
-                // activeColor: '#ffffff',  
-                // barStyle: { backgroundColor: '#000000' },  
             }  
         },  
-        Profile: { screen: ProfileScreen,  
+        Search: { screen: SearchScreen,  
             navigationOptions:{  
-                tabBarLabel:'Profile',  
+                tabBarLabel:'Search',  
                 tabBarIcon: ({ tintColor }) => (  
                     <View>  
                         {/* <Icon style={[{color: tintColor}]} size={25} name={'ios-person'}/>   */}
                         <Text style={{color:'white'}}>2</Text>
-                    </View>),  
-                // activeColor: '#ffffff',  
-                // activeColor: '#ffffff',  
-                // barStyle: { backgroundColor: '#000000' },  
+                    </View>),   
             }  
         },  
-        Image: { screen: ImageScreen,  
+        History: { screen: HistoryScreen,  
             navigationOptions:{  
                 tabBarLabel:'History',  
                 tabBarIcon: ({ tintColor }) => (  
                     <View>  
                         {/* <Icon style={[{color: tintColor}]} size={25} name={'ios-images'}/>   */}
                         <Text style={{color:'white'}}>3</Text>
-                    </View>),  
-                // activeColor: '#ffffff',  
-                // activeColor: '#ffffff',  
-                // barStyle: { backgroundColor: '#000000' },  
+                    </View>),
             }  
         },  
-        Cart: {  
-            screen: CartScreen,  
+        Setting: {  
+            screen: SettingScreen,  
             navigationOptions:{  
-                tabBarLabel:'Cart',  
+                tabBarLabel:'Setting',  
                 tabBarIcon: ({ tintColor }) => (  
                     <View>  
                         {/* <Icon style={[{color: tintColor}]} size={25} name={'ios-cart'}/>    */}
                         <Text style={{color:'white'}}>4</Text>
                     </View>),  
-                // activeColor: '#ffffff',  
-                // activeColor: '#ffffff',    
-                // barStyle: { backgroundColor: '#000000' },  
             }  
         },  
     },  
