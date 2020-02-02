@@ -21,44 +21,62 @@ import {
 
 } from 'react-native';
 
+import AjaxFunc from '../func/AjaxFunc'
+
 const STORAGE_USER_KEY = "USER";
+const API_GET_USER_URL = 'http://172.30.1.53:8010/app/user/getUser.do';
 
 export default class LoginScreen extends Component   {
-  constructor(props) {
-    super(props);
-
-    navigation = this.props.navigation;
+  
+  init(){
     AsyncStorage.getItem(STORAGE_USER_KEY, ( error , value )=>{
-      // let json = JSON.parse(value);
-      // console.log (  " Value :" , value , " Error :" , error)
-      // callback (json, transData, error)
+      
       if ( value != null && value != undefined ){
         let json = JSON.parse(value);
-        let id = json.id  ; 
-
-        navigation.navigate("MyNav",json);
+        let username = json.username  ; 
+        let password = json.password ; 
+        let token = json.token ; 
+        
+        this.props.navigation.navigate("MyNav");
       }
     });
   }
-
   checkLogin(){
-    let id = this.state.id;
-    let pwd = this.state.pwd;
-    console.log ('Login ID :', id , "Login PWD :" , pwd )
+    let username = this.state.username;
+    let password = this.state.password;
+    console.log ('Login username :', username , "Login password :" , password )
 
-    date = {
-      'id':id,
-      'pwd':pwd
-    }
-    this.setUserStorage(date);
+    
+    AjaxFunc.ajaxPost(
+      API_GET_USER_URL,
+      {'username':username,'password':password},
+      this.setUserStorage,
+      this.props.navigation
+    );
   }
 
-  setUserStorage(data){
-    let str = JSON.stringify(data);
-    AsyncStorage.setItem( STORAGE_USER_KEY , str ) ;
+  setUserStorage(data,callbackData){
+    if ( data != null ){
+      let username = data.username  ; 
+      let password = data.password ; 
+      let token = data.token ;
+
+      if ( username != null && username != '' && password != null && password != '' && token != null && token != '' ){
+        let str = JSON.stringify(data);
+        AsyncStorage.setItem( STORAGE_USER_KEY , str ) ;
+        callbackData.navigate("MyNav");
+      }else {
+        alert('Login Fail')
+      }
+    }
+  }
+
+  componentDidMount(){
+    this.init();
   }
 
   render(){
+
     return (
       <View style={styles.rootView}>
           <StatusBar barStyle="light-content" />
@@ -69,9 +87,9 @@ export default class LoginScreen extends Component   {
             <TextInput 
                   style={styles.inputText}
                   placeholderTextColor="white"
-                  placeholder="Your Id ..."
-                  onChangeText={text => this.setState({id:text})}
-                  autoCorrect="false"
+                  placeholder="Username ..."
+                  onChangeText={text => this.setState({username:text})}
+                  autoCorrect={false}
                   autoCapitalize={false}
                   ></TextInput>
             
@@ -80,8 +98,8 @@ export default class LoginScreen extends Component   {
               <TextInput 
                   style={styles.inputText}
                   placeholderTextColor="white"
-                  placeholder="Your Pwd ..."
-                  onChangeText={text => this.setState({pwd:text})}
+                  placeholder="Password ..."
+                  onChangeText={text => this.setState({password:text})}
                   autoCorrect={false}
                   autoCapitalize={false}
                   secureTextEntry={true}

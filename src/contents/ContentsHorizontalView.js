@@ -11,8 +11,32 @@ import {
 import ContentsView from './ContentsView'
 
 export default class ContentsHorizontalView extends Component   {
-
+    constructor(props){
+        super(props);
+    }
     render(){
+        const videos = this.props.videos;
+        var contentsViesList = [] ;
+
+        if ( videos != null && videos != undefined ){
+            const len = videos.length; 
+
+            for ( var i = 0 ; i < len ; i ++ ){
+                const v = videos[i];
+                var videoSuperId = v.videoSuperId;
+                var videoSuperNm = v.videoSuperNm;
+                var videoSuperMainImage = v.videoSuperMainImage;
+                
+                contentsViesList.push(
+                    <ContentsView 
+                        videoSuperId={videoSuperId} 
+                        videoSuperNm={videoSuperNm}
+                        imageUrl={videoSuperMainImage} >
+                        
+                    </ContentsView>
+                )
+            }
+        }
         return (
             <View style={styles.contentsRoot}>
                 <View>
@@ -22,13 +46,7 @@ export default class ContentsHorizontalView extends Component   {
                 </View>
                 <ScrollView horizontal={true} style={styles.scrollView} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false} >
                     <View style={{flexDirection: 'row'}}>
-                        <ContentsView ></ContentsView>
-                        <ContentsView ></ContentsView>
-                        <ContentsView ></ContentsView>
-                        <ContentsView ></ContentsView>
-                        <ContentsView ></ContentsView>
-                        <ContentsView ></ContentsView>
-                        <ContentsView ></ContentsView>
+                        {contentsViesList}
                     </View>
                 </ScrollView>
             </View>
@@ -40,7 +58,7 @@ export default class ContentsHorizontalView extends Component   {
 const styles = StyleSheet.create({
     contentsRoot:{
         marginTop:10,
-        marginBottom:5
+        marginBottom:3
     },
     titleText: {
         color:'white',
@@ -50,7 +68,7 @@ const styles = StyleSheet.create({
     },
     scrollView:{
         width:'100%', 
-        height:120, 
-        backgroundColor:'#666666'
+        height:140, 
+        backgroundColor:'#111111'
     }
 });

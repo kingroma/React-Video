@@ -14,32 +14,63 @@ import {
   View,
   Text,
   StatusBar,
+  AsyncStorage
 } from 'react-native';
 
-import Header from '../basic/Header';
-import Footer from '../basic/Footer';
 import MainHeaderImage from '../main/MainHeaderImage';
 import ContentsHorizontalView from '../contents/ContentsHorizontalView'
+import AjaxFunc from '../func/AjaxFunc'
+
+const ip = 'http://172.30.1.53:8010/app';
 
 export default class MainScreen extends Component   {
 
-    render(){
-        return (
-            <View >
-                <StatusBar barStyle="light-content" />
-                  <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
-                    <MainHeaderImage></MainHeaderImage>
 
-                    <ContentsHorizontalView title="Recent"></ContentsHorizontalView>
-                    <ContentsHorizontalView title="Popular"></ContentsHorizontalView>
-                    <ContentsHorizontalView title="MyBook"></ContentsHorizontalView>
-                    <ContentsHorizontalView title="Movie"></ContentsHorizontalView>
-                  </ScrollView>
-                  
-                  {/* <Header></Header>   */}
-            </View>
-          );
+  constructor(props){
+    console.log('constructor')
+    super(props);
+    this.state = {mainData:<></>};
+  }
+
+  componentDidMount(){ 
+    var url = ip + '/contents/api/mainVideoList.do';
+    AjaxFunc.ajaxPost(url,{},this.getMainData,this)
+  }
+
+  getMainData(data,transferData){
+    var output = [];
+    if ( data != null && data != undefined ){
+      const length = data.length ; 
+      for ( var i = 0 ; i < length ; i ++ ){
+        const contents = data[i];
+        var contentsNm = contents.contentsNm
+        
+        output.push(
+          <ContentsHorizontalView title={contentsNm} videos={contents.videos}>
+          </ContentsHorizontalView>
+        )
+      }
+
+      transferData.setState({mainData:output});
     }
+    
+  }
+  render(){
+    console.log('render')
+
+    return (
+        <View >
+            <StatusBar barStyle="light-content" />
+              <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
+                <MainHeaderImage></MainHeaderImage>
+                {this.state.mainData}
+              </ScrollView>
+              
+              {/* <Header></Header>   */}
+        </View>
+      );
+  }
+    
 };
 
 const styles = StyleSheet.create({

@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     zIndex:0
   },
   inputViewRoot:{
+    paddingTop:10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -68,13 +69,13 @@ const styles = StyleSheet.create({
     backgroundColor:"#465881",
     
     borderRadius:25,
-    height:30,
+    height:50,
     marginBottom:20,
     justifyContent:"center",
     padding:20
   },
   inputText:{
-    height:30,
+    height:50,
     color:"white"
   },
   
